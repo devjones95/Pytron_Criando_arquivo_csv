@@ -11,13 +11,13 @@ Qual ferramenta X é equivalente para executar a mesma demanda entre uma Cloud e
 
 import pandas as pd
 
-# Criando os dados da comparação
+# Dados da comparação entre as 2 Clouds
 data = {
     "Categoria": [
-        "Armazenamento de Dados", "Armazenamento de Dados", "Armazenamento de Dados", "Armazenamento de Dados", "Armazenamento de Dados",
-        "Processamento de Dados", "Processamento de Dados", "Processamento de Dados", "Processamento de Dados", "Processamento de Dados",
-        "Análise e Visualização de Dados", "Análise e Visualização de Dados", "Análise e Visualização de Dados",
-        "Mensageria e Streaming", "Mensageria e Streaming"
+        "Object Storage", "Data Warehouse", "Banco Relacional Gerenciado", "Banco Relacional Escalável", "Banco NoSQL",
+        "ETL / ELT", "Processamento em Lote / Big Data", "Orquestração de Workflows", "Funções Serverless", "Contêineres Serverless",
+        "BI / Dashboards", "Machine Learning no DW", "Plataforma de IA/ML Gerenciada",
+        "Mensageria Assíncrona", "Processamento de Streaming"
     ],
     "GCP": [
         "Cloud Storage", "BigQuery", "Cloud SQL", "Cloud Spanner", "Firestore",
@@ -26,19 +26,22 @@ data = {
         "Pub/Sub", "Dataflow (Streaming)"
     ],
     "AWS": [
-        "S3 (Simple Storage Service)", "Amazon Redshift", "Amazon RDS", "Amazon Aurora / DynamoDB", "Amazon DynamoDB",
-        "AWS Glue / Kinesis Data Analytics", "Amazon EMR (Elastic MapReduce)", "Amazon MWAA (Managed Workflows for Apache Airflow)",
-        "AWS Lambda", "AWS Fargate",
+        "Amazon S3", "Amazon Redshift", "Amazon RDS", "Amazon Aurora", "Amazon DynamoDB",
+        "AWS Glue", "Amazon EMR", "Amazon MWAA", "AWS Lambda", "AWS Fargate",
         "Amazon QuickSight", "Redshift ML", "Amazon SageMaker",
         "Amazon SNS + SQS", "Amazon Kinesis"
     ]
 }
 
-# Criando um DataFrame
+# Agora vamos criar o dataframe
 df = pd.DataFrame(data)
 
-# Salvando como CSV
-file_path = "/mnt/data/gcp_vs_aws_tools.csv"
-df.to_csv(file_path, index=False, encoding="utf-8")
+# Salvando como Excel formatado
+output_path = "gcp_vs_aws_tools_formatted.xlsx"
+with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+    df.to_excel(writer, index=False, sheet_name='Comparativo GCP vs AWS')
 
-file_path
+print(f"Arquivo Excel salvo em: {output_path}")
+
+
+
